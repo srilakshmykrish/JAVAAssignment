@@ -97,7 +97,7 @@ public class Map
     {
         return mapElements;
     }
-    / /** getNodeElements method returns parameter for class PathFinding
+     /** getNodeElements method returns parameter for class PathFinding
  * @return start
  */
     public Node getStart()

@@ -24,6 +24,7 @@ public class TestMap
 {
     public static void main(String[] args) throws IOException
     {
+        //creates a new map by calling the instance of Map.
         Map map= new Map();
         map.createMap();
         map.printMap();

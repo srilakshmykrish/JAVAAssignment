@@ -1,4 +1,0 @@
-Main class defined in TestMap.java.
-
-Compile and Run TestMap.java in package com.assignment.test;
-

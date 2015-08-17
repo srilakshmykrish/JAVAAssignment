@@ -112,6 +112,7 @@ public class Start implements Node
     {
         return previousNode;
     }
+
     /** Method solValue returns '#' character for the final output pattern printing.
      * @return #
      */
