@@ -4,24 +4,27 @@
  *
  */
 package com.assignment.map;
-
-import com.assignment.map.assignment.map.elements.*;
+import com.assignment.map.elements.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 /**
  * @author Srilakshmy Krishnan
- * @since 2015/08/12
+ * @since 2015/08/15
  */
 
-/** Class Map reads the input file "large_map.txt" in the resource repository and converts each line
- *  as character by character and stores it in an array nodeElements.
+/** Class Map reads the source file large_map.txt in the resource folder and perform
+ * createMap and printMap methods.
  */
 public class Map
 {
-    private INode[][] node = new INode[50][50];
-    public int k;
+    private Node[][] mapElements = new Node[50][50];
+    private Node start;
+    private Node finish;
+
+    /** createMap reads the file and represent the source file in terms of node names. Say @ as S etc
+     */
     public void createMap()
     {
         try
@@ -37,28 +40,32 @@ public class Map
                     {
                         // The character '@' represents the Starting Node.
                         case '@':
-                            node[i][j] = new Start();
+                            mapElements[i][j] = new Start(i, j);
+                            start= mapElements[i][j];
                             break;
-                        // The character '.' represents mode of path as Flatlands.
+                        // The character '.' represents mode of path as FlatLands.
                         case '.':
-                            node[i][j] = new FlatLands();
+                            mapElements[i][j] = new FlatLands(i, j);
                             break;
                         // The character '*' represents mode of path as Forest.
                         case '*':
-                            node[i][j] = new Forest();
+                            mapElements[i][j] = new Forest(i, j);
                             break;
                         // The character '^' represents mode of path as Mountains.
                         case '^':
-                            node[i][j] = new Mountain();
+                            mapElements[i][j] = new Mountain(i, j);
                             break;
                         // The character '~' represents mode of path as Water.
                         case '~':
-                            node[i][j] = new Water();
+                            mapElements[i][j] = new Water(i, j);
                             break;
                         // The character 'X' represents the Finish Node.
                         case 'X':
-                            node[i][j] = new Finish();
+                            mapElements[i][j] = new Finish(i, j);
+                            finish= mapElements[i][j];
                             break;
+                        default:
+                            System.out.println("Invalid character");
                     }
                 }
             }
@@ -68,94 +75,40 @@ public class Map
             System.out.println("Error processing file: " + exception);
         }
     }
-/* printMap is a method to convert large_map.txt to a character representation say Flatlands as L (lands)
-*  Forest as F, Water as W etc.
-*/
+
+    /** printMap Map using node names as each entity. Prints @ as Start element 'S'.
+     */
     public void printMap()
     {
-        System.out.println("The Node representation of the Map is :");
-        for(k=0;k<3;k++)
+        for (int i = 0; i < 50; i++)
         {
-            System.out.println();
-        }
-        for (int i = 0; i < 50 ; i++)
-        {
-            for (int j = 0; j < 50 ; j++)
+            for (int j = 0; j < 50; j++)
             {
-                System.out.print(node[i][j].getName() + " ");
+                System.out.print(mapElements[i][j].getNodeElement() + " ");
             }
-            System.out.println();
-        }
-        for(k=0;k<3;k++)
-        {
-            System.out.println();
-        }
-    }
-    /* costMap is a method to get the cost of traversal for each node based on their mode of path eg. FlatLands has
-    * a cost of 1, Forest has a cost of 2 etc.
-    */
-    public void costMap()
-    {
-        System.out.println("The weighted cost of the Map is :");
-        for(k=0;k<3;k++)
-        {
-            System.out.println();
-        }
-        for (int i = 0; i < 50 ; i++)
-        {
-            for (int j = 0; j < 50 ; j++)
-            {
-                System.out.print(node[i][j].nodeValue() + " ");
-            }
-            System.out.println();
-        }
-        for(k=0;k<3;k++)
-        {
             System.out.println();
         }
     }
 
-    /** getAdjacent is a method defined to give all the adjacent nodes of a specific node located in the location. Any
-     *  node is referenced as node[row][coloumn].
-     * @param x is the row of the requested node
-     * @param y is the coloumn of the requested node
-     *  Also with the adjacent nodes their weighted value or cost is also calculated.
+    /** getNodeElements method returns parameter for class PathFinding
+     * @return mapElements
      */
-    public void getAdjacent(int x,int y)
+    public Node[][] getNodeElements()
     {
-        System.out.println("The adjacent nodes of the Node located at row " + x + "and coloumn " + y  + " is :");
-        for(int i=x-1;i<=x+1;i++)
-        {
-            if (i<0 || i>49)
-            {
-                continue;
-            }
-            for(int j=y-1;j<=y+1;j++)
-            {
-                if (j<0 || j>49)
-                {
-                    continue;
-                }
-                System.out.print( " " + node[i][j].getName());
-            }
-            System.out.println();
-        }
-        System.out.println("The adjacent cost of Nodes located at row " + x + "and coloumn " + y  + " is :");
-        for(int i=x-1;i<=x+1;i++)
-        {
-            if (i<0 || i>49)
-            {
-                continue;
-            }
-            for (int j = y - 1; j <= y + 1; j++)
-            {
-                if (j<0 || j>49)
-                {
-                    continue;
-                }
-                System.out.print(node[i][j].nodeValue() + " ");
-            }
-            System.out.println();
-        }
+        return mapElements;
+    }
+    / /** getNodeElements method returns parameter for class PathFinding
+ * @return start
+ */
+    public Node getStart()
+    {
+        return start;
+    }
+    /** getNodeElements method returns parameter for class PathFinding
+     * @return finish
+     */
+    public Node getFinish()
+    {
+        return finish;
     }
 }

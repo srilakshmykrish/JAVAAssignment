@@ -5,16 +5,21 @@
  */
 package com.assignment.test;
 
-import com.assignment.map.Map;
-
-import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * @author Srilakshmy Krishnan
- * @since 2015/08/12
+ * @since 2015/08/15
  */
+/* Importing java packages*/
+import com.assignment.algorithm.PathFinding;
+import com.assignment.map.Map;
+import java.io.IOException;
 
+/** Class TestMap is the main class method. The class creates a object of the class Map and calls two of its functions createMap
+ *  and printMap.
+ *  The class creates an object of the class PathFinding and calls its method aStar with three parameters namely getNodeElements
+ *  getStart and getFinish.
+ */
 public class TestMap
 {
     public static void main(String[] args) throws IOException
@@ -22,12 +27,8 @@ public class TestMap
         Map map= new Map();
         map.createMap();
         map.printMap();
-        map.costMap();
-        Scanner input = new Scanner(System.in);
-        System.out.println("Enter the row of the node: ");
-        int Row = input.nextInt();
-        System.out.println("Enter the column of the node: ");
-        int Column = input.nextInt();
-        map.getAdjacent(Row,Column);
+        PathFinding pathFinding= new PathFinding();
+        pathFinding.aStar(map.getNodeElements(), map.getStart(), map.getFinish());
+        pathFinding.printPath();
     }
 }
