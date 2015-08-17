@@ -1,0 +1,46 @@
+Input : Suppose a small portion of the large_map.txt is taken.
+
+S is the start node 
+X is the finish/end 
+
+1. Starting from S it checks for its adjacent nodes i.e here [M,F,L].
+2. From these adjacent node we calculate the least cost/optimal path by selecting the node with low value of cost.
+3. The cost is calculated through F where,
+
+	G  the exact cost to reach this node from the starting node.
+	H  the estimated(heuristic) cost to reach the destination from here.
+	F = G + H.
+
+The Hueristic ditance H is defined as 
+   
+G= G(n.parent)+cost(n.parent,n)
+H = Math.abs(start.x-destination.x) + Math.abs(start.y-destination.y));
+
+
+
+Provided cost values :
+
+S - 0	(START)
+M - 3   (MOUNTAIN)
+F - 2	(FOREST)
+L - 1	(FLATLANDS)
+X - 1	(FINISH)
+
+S M L M W F F F F M F W W L W M W 
+F L F W F L W M M M W W L F W F L  
+M M F F F W L F M F M L L M F F L  
+F W W L W M L W F W M W M M F M F  
+F L M W M M L W M L M L M M F W M  
+M L M M W M L F W F F L F W F M F  
+F W W L F L M W W W M F L M F W W  
+L W L F W W M F L F F L W M M W F  
+L M M M W W F W L M L W L F W L W  
+M M M F M M F F L L L F L M M F M 
+L L F M M M M M L M W L M W L M X
+
+
+For Example from above
+
+Starts with S (0)- > chooses L (cost 1) -> chooses F (2) -> chooses L (1).
+
+And total cost is calculated as the summation of cost on each traversal.
